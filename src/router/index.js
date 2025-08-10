@@ -4,12 +4,14 @@ import { useAuthStore } from '@/stores/auth.store';
 import RegisterView from '@/views/RegisterView.vue';
 import LoginView from '@/views/LoginView.vue';
 import DashboardView from '@/views/DashboardView.vue';
+import SettingsView from '@/views/SettingsView.vue';
 
 const routes = [
     { path: '/', redirect: { name: 'Dashboard' } },
     { path: '/register', name: 'Register', component: RegisterView, meta: { guest: true } },
     { path: '/login', name: 'Login', component: LoginView, meta: { guest: true } },
-    { path: '/dashboard', name: 'Dashboard', component: DashboardView, meta: { requiresAuth: true } }
+    { path: '/dashboard', name: 'Dashboard', component: DashboardView, meta: { requiresAuth: true } },
+    { path: '/settings', name: 'Settings', component: SettingsView, meta: { requiresAuth: true } },
 ];
 
 const router = createRouter({
