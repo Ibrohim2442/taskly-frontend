@@ -1,9 +1,13 @@
 <script setup>
+import { useRoute } from 'vue-router'
+const route = useRoute()
+
+const hideLayoutOn = ['/login', '/register']
 
 </script>
 
 <template>
-  <div class="flex h-screen bg-gray-50 p-4">
+  <div class="flex h-screen bg-gray-50 p-4" v-if="!hideLayoutOn.includes(route.path)">
     <div class="flex w-full bg-white rounded-2xl shadow-sm overflow-hidden">
       <!-- Sidebar -->
       <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
@@ -56,6 +60,8 @@
       </div>
     </div>
   </div>
+
+  <router-view v-else />
 
 </template>
 
