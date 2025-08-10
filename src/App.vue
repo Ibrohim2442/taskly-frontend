@@ -58,9 +58,18 @@
 
         <!-- Header -->
         <header class="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gray-50">
-          <div class="flex items-center bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200">
-            <i class="fas fa-search text-gray-400 mr-2"></i>
-            <input type="text" placeholder="Search" class="bg-transparent focus:outline-none text-sm text-gray-600" />
+          <div
+              class="flex items-center bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200 text-gray-400 cursor-not-allowed select-none"
+              title="Coming Soon"
+          >
+            <i class="fas fa-search mr-2"></i>
+            <input
+                type="text"
+                placeholder="Search"
+                disabled
+                class="bg-transparent focus:outline-none text-sm text-gray-400 cursor-not-allowed"
+            />
+            <span class="ml-2 text-xs font-bold text-red-600">Coming Soon</span>
           </div>
 
           <!-- Profile -->

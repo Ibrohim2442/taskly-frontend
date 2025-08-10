@@ -31,8 +31,11 @@
           </p>
         </div>
 
-        <div class="text-sm">
-          <a href="#" class="text-blue-600 hover:underline">Forgot password?</a>
+        <div class="text-sm flex items-center space-x-2 text-gray-400 cursor-not-allowed select-none">
+          <a href="#" @click.prevent class="hover:underline pointer-events-none">
+            Forgot password?
+          </a>
+          <span class="text-xs font-bold text-red-600">Coming Soon</span>
         </div>
 
         <button
