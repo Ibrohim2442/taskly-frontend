@@ -19,7 +19,7 @@ export const useAuthStore = defineStore('auth', {
             this.errors = {};
             try {
                 await api.post('/register', payload);
-                // ❌ token va user saqlanmaydi — faqat muvaffaqiyatli ro‘yxatdan o‘tish
+                // token and user are not saved — only successful registration
                 return true;
             } catch (error) {
                 if (error.response?.status === 422) {

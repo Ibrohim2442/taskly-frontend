@@ -5,7 +5,6 @@
       <h2 class="text-2xl font-bold text-center mb-6">Log In</h2>
 
       <form @submit.prevent="handleLogin" class="space-y-4">
-        <!-- Email -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
           <input
@@ -19,7 +18,6 @@
           </p>
         </div>
 
-        <!-- Password -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
           <input
@@ -33,12 +31,10 @@
           </p>
         </div>
 
-        <!-- Forgot password -->
         <div class="text-sm">
           <a href="#" class="text-blue-600 hover:underline">Forgot password?</a>
         </div>
 
-        <!-- Submit -->
         <button
             type="submit"
             class="w-full bg-blue-600 text-white font-medium py-2 rounded hover:bg-blue-700 transition"
@@ -48,7 +44,6 @@
         </button>
       </form>
 
-      <!-- Sign up link -->
       <p class="mt-6 text-center text-sm text-gray-600">
         Don't have an account?
         <router-link to="/register" class="text-blue-600 hover:underline">

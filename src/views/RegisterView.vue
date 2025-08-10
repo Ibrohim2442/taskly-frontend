@@ -5,7 +5,6 @@
       <h2 class="text-2xl font-bold text-center mb-6">Sign Up</h2>
 
       <form @submit.prevent="handleRegister" class="space-y-4">
-        <!-- Name -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
           <input
@@ -19,7 +18,6 @@
           </p>
         </div>
 
-        <!-- Email -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
           <input
@@ -33,7 +31,6 @@
           </p>
         </div>
 
-        <!-- Password -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
           <input
@@ -47,7 +44,6 @@
           </p>
         </div>
 
-        <!-- Confirm Password -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
           <input
@@ -61,7 +57,6 @@
           </p>
         </div>
 
-        <!-- Submit -->
         <button
             type="submit"
             class="w-full bg-blue-600 text-white font-medium py-2 rounded hover:bg-blue-700 transition"
@@ -71,7 +66,6 @@
         </button>
       </form>
 
-      <!-- Login link -->
       <p class="mt-6 text-center text-sm text-gray-600">
         Already have an account?
         <router-link to="/login" class="text-blue-600 hover:underline">
