@@ -1,67 +1,82 @@
-import { defineStore } from "pinia";
-import api from "@/services/api";
+import { defineStore } from 'pinia';
+import api from '@/services/api';
 
-export const useAuthStore = defineStore("auth", {
+export const useAuthStore = defineStore('auth', {
     state: () => ({
         user: null,
-        token: localStorage.getItem("token") || null,
+        token: localStorage.getItem('token') || null,
+        errors: {},
+        loading: false
     }),
 
+    getters: {
+        isAuthenticated: (state) => !!state.token
+    },
+
     actions: {
-        async login(email, password) {
+        async register(payload) {
+            this.loading = true;
+            this.errors = {};
             try {
-                const { data } = await api.post("/login", { email, password });
-                if (data.token) {
-                    this.token = data.token;
-                    this.user = data.user;
-                    localStorage.setItem("token", data.token);
-                    return data;
-                } else {
-                    // Backenddan xatolarni qaytaramiz
-                    return { errors: data.errors || { general: "Login failed" } };
-                }
+                await api.post('/register', payload);
+                // ❌ token va user saqlanmaydi — faqat muvaffaqiyatli ro‘yxatdan o‘tish
+                return true;
             } catch (error) {
-                if (error.response && error.response.status === 422) {
-                    // Validation errors
-                    return { errors: error.response.data.errors };
+                if (error.response?.status === 422) {
+                    this.errors = error.response.data.errors;
+                } else {
+                    console.error('Register error:', error.response?.data || error.message);
                 }
-                throw error;  // boshqa xatolarni tashlab yuboramiz
+                return false;
+            } finally {
+                this.loading = false;
             }
         },
 
-        async register(name, email, password, password_confirmation) {
-            const { data } = await api.post("/register", {
-                name,
-                email,
-                password,
-                password_confirmation,
-            });
-
-            if (data.token) {
-                this.token = data.token;
-                this.user = data.user;
-                localStorage.setItem("token", data.token);
+        async login(payload) {
+            this.loading = true;
+            this.errors = {};
+            try {
+                const { data } = await api.post('/login', payload);
+                this.token = data.data.token;
+                this.user = data.data.user;
+                localStorage.setItem('token', this.token);
+                return true;
+            } catch (error) {
+                if (error.response?.status === 422) {
+                    this.errors = error.response.data.errors;
+                } else if (error.response?.status === 401) {
+                    this.errors = { email: ['The provided credentials are incorrect.'] };
+                } else {
+                    console.error('Login error:', error.response?.data || error.message);
+                }
+                return false;
+            } finally {
+                this.loading = false;
             }
-        },
-
-        async logout() {
-            await api.post("/logout");
-            this.token = null;
-            this.user = null;
-            localStorage.removeItem("token");
         },
 
         async fetchUser() {
+            if (!this.token) return;
             try {
-                const { data } = await api.get("/me");
-                this.user = data;
+                const { data } = await api.get('/me');
+                this.user = data.data;
             } catch (error) {
+                console.error('Fetch user error:', error.response?.data || error.message);
                 this.logout();
             }
         },
 
-        isAuthenticated() {
-            return !!this.token;
-        },
-    },
+        async logout() {
+            try {
+                await api.post('/logout');
+            } catch (error) {
+                console.error('Logout error:', error.response?.data || error.message);
+            } finally {
+                this.user = null;
+                this.token = null;
+                localStorage.removeItem('token');
+            }
+        }
+    }
 });
