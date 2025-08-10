@@ -24,22 +24,32 @@
           <img src="@/assets/logo.png" alt="Logo" class="h-28 object-contain" />
         </div>
         <nav class="flex-1 px-4 space-y-2 text-gray-600">
-          <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-100">
+          <router-link
+              to="/"
+              class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-100"
+          >
             <i class="fas fa-columns text-gray-400"></i>
             <span>Dashboard</span>
-          </a>
-          <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-100">
+          </router-link>
+          <router-link
+              to="/projects"
+              class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-100"
+          >
             <i class="fas fa-folder text-gray-400"></i>
             <span>Projects</span>
-          </a>
-          <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-100">
-            <i class="fas fa-bell text-gray-400"></i>
+          </router-link>
+          <div class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed select-none">
+            <i class="fas fa-bell"></i>
             <span>Notifications</span>
-          </a>
-          <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-100">
+            <span class="ml-auto text-xs font-bold text-red-600">Coming Soon</span>
+          </div>
+          <router-link
+              to="/settings"
+              class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-100"
+          >
             <i class="fas fa-cog text-gray-400"></i>
             <span>Settings</span>
-          </a>
+          </router-link>
         </nav>
       </aside>
 
@@ -60,10 +70,16 @@
             </div>
             <transition name="fade">
               <div v-if="showMenu" class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <router-link
+                    to="/settings"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
                   <i class="fas fa-cog mr-2 text-gray-400"></i> Settings
-                </a>
-                <button @click="logout" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                </router-link>
+                <button
+                    @click="logout"
+                    class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                >
                   <i class="fas fa-sign-out-alt mr-2"></i> Logout
                 </button>
               </div>
