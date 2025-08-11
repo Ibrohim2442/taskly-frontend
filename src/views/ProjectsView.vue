@@ -3,56 +3,26 @@
     <div class="mx-auto w-full max-w-6xl">
       <div class="flex items-center justify-between mb-6">
         <h1 class="text-3xl font-semibold text-gray-800">Projects</h1>
-        <button
-            @click="openCreateModal"
-            class="px-4 py-2 bg-blue-600 text-white rounded-xl shadow-sm hover:bg-blue-700 transition"
-        >
+        <button @click="openCreateModal" class="px-4 py-2 bg-blue-600 text-white rounded-xl shadow-sm hover:bg-blue-700 transition">
           + New Project
         </button>
       </div>
 
-      <!-- Create/Edit Modal (glass) -->
       <transition name="modal-fade">
-        <div
-            v-if="showModal"
-            class="fixed inset-0 flex items-center justify-center z-50"
-        >
-          <div
-              class="absolute inset-0 bg-white/20 backdrop-blur-xl"
-              @click.self="closeModal"
-          ></div>
+        <div v-if="showModal" class="fixed inset-0 flex items-center justify-center z-50">
+          <div class="absolute inset-0 bg-white/20 backdrop-blur-xl" @click.self="closeModal"></div>
 
-          <div
-              class="relative w-full max-w-md p-6 rounded-2xl bg-white/30 backdrop-blur-lg border border-white/30 shadow-lg"
-          >
+          <div class="relative w-full max-w-md p-6 rounded-2xl bg-white/30 backdrop-blur-lg border border-white/30 shadow-lg">
             <h2 class="text-xl font-semibold text-gray-800 mb-4">
               {{ isEdit ? 'Edit Project' : 'Create Project' }}
             </h2>
 
-            <input
-                v-model="form.name"
-                placeholder="Project name"
-                class="w-full p-3 rounded-xl bg-white/60 placeholder-gray-500 text-gray-800 border border-white/40 focus:outline-none focus:ring-2 focus:ring-blue-300 mb-3"
-            />
-
-            <textarea
-                v-model="form.description"
-                placeholder="Description (optional)"
-                rows="3"
-                class="w-full p-3 rounded-xl bg-white/60 placeholder-gray-500 text-gray-800 border border-white/40 focus:outline-none focus:ring-2 focus:ring-blue-300"
-            ></textarea>
+            <input v-model="form.name" placeholder="Project name" class="w-full p-3 rounded-xl bg-white/60 border border-white/40 focus:ring-2 focus:ring-blue-300 mb-3" />
+            <textarea v-model="form.description" placeholder="Description (optional)" rows="3" class="w-full p-3 rounded-xl bg-white/60 border border-white/40 focus:ring-2 focus:ring-blue-300"></textarea>
 
             <div class="flex justify-end gap-3 mt-4">
-              <button
-                  @click="closeModal"
-                  class="px-4 py-2 rounded-lg bg-white/50 border border-white/30 text-gray-700 hover:bg-white/70 transition"
-              >
-                Cancel
-              </button>
-              <button
-                  @click="saveProject"
-                  class="px-4 py-2 rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition"
-              >
+              <button @click="closeModal" class="px-4 py-2 rounded-lg bg-white/50 border border-white/30 text-gray-700 hover:bg-white/70 transition">Cancel</button>
+              <button @click="saveProject" class="px-4 py-2 rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition">
                 {{ isEdit ? 'Update' : 'Create' }}
               </button>
             </div>
@@ -60,7 +30,6 @@
         </div>
       </transition>
 
-      <!-- Delete confirm modal -->
       <transition name="modal-fade">
         <div v-if="showDeleteModal" class="fixed inset-0 flex items-center justify-center z-50">
           <div class="absolute inset-0 bg-white/20 backdrop-blur-xl" @click.self="closeDelete"></div>
@@ -68,48 +37,29 @@
           <div class="relative w-full max-w-sm p-6 rounded-2xl bg-white/30 backdrop-blur-lg border border-white/30 shadow-lg">
             <h3 class="text-lg font-semibold text-gray-800">Delete Project</h3>
             <p class="text-gray-600 mt-2">
-              Are you sure you want to delete
-              <span class="font-medium text-gray-800">"{{ selectedProject?.name }}"</span>?
+              Are you sure you want to delete "<span class="font-medium">{{ selectedProject?.name }}</span>"?
             </p>
 
             <div class="flex justify-end gap-3 mt-6">
-              <button @click="closeDelete" class="px-4 py-2 rounded-lg bg-white/50 border border-white/30 text-gray-700 hover:bg-white/70 transition">
-                Cancel
-              </button>
+              <button @click="closeDelete" class="px-4 py-2 rounded-lg bg-white/50 border border-white/30 text-gray-700 hover:bg-white/70 transition">Cancel</button>
               <button @click="confirmDelete" class="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition">Delete</button>
             </div>
           </div>
         </div>
       </transition>
 
-      <!-- Projects grid -->
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <div
-            v-for="p in store.projects"
-            :key="p.id"
-            class="p-5 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-100 hover:shadow-md transition cursor-pointer flex flex-col justify-between"
-            @click="selectProject(p)"
-        >
+        <div v-for="p in store.projects" :key="p.id" @click="selectProject(p)" class="p-5 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-100 hover:shadow-md transition flex flex-col justify-between">
           <div>
             <h3 class="text-lg font-semibold text-gray-800">{{ p.name || 'Untitled project' }}</h3>
-            <p class="mt-2 text-sm text-gray-500 leading-relaxed">{{ p.description || 'No description' }}</p>
+            <p class="mt-2 text-sm text-gray-500">{{ p.description || 'No description' }}</p>
           </div>
 
           <div class="mt-4 flex items-center justify-between">
-            <div class="text-xs text-gray-400">ID: {{ p.id }}</div>
+            <span class="text-xs text-gray-400">ID: {{ p.id }}</span>
             <div class="flex gap-2">
-              <button
-                  @click.stop="openEditModal(p)"
-                  class="px-2 py-1 rounded-md bg-yellow-300 text-white text-sm hover:bg-yellow-400 transition"
-              >
-                Edit
-              </button>
-              <button
-                  @click.stop="openDeleteModal(p)"
-                  class="px-2 py-1 rounded-md bg-red-500 text-white text-sm hover:bg-red-600 transition"
-              >
-                Delete
-              </button>
+              <button @click.stop="openEditModal(p)" class="px-2 py-1 rounded-md bg-yellow-300 text-white text-sm hover:bg-yellow-400">Edit</button>
+              <button @click.stop="openDeleteModal(p)" class="px-2 py-1 rounded-md bg-red-500 text-white text-sm hover:bg-red-600">Delete</button>
             </div>
           </div>
         </div>
@@ -139,27 +89,17 @@
   const showDeleteModal = ref(false);
   const selectedProject = ref(null);
 
-  onMounted(async () => {
-    try {
-      await store.fetchProjects();
-    } catch (e) {
-      toast.error('Failed to load projects');
-    }
-  });
+  onMounted(() => store.fetchProjects().catch(() => toast.error('Failed to load projects')));
 
   function openCreateModal() {
     isEdit.value = false;
-    form.id = null;
-    form.name = '';
-    form.description = '';
+    Object.assign(form, { id: null, name: '', description: '' });
     showModal.value = true;
   }
 
   function openEditModal(project) {
     isEdit.value = true;
-    form.id = project.id;
-    form.name = project.name ?? '';
-    form.description = project.description ?? '';
+    Object.assign(form, project);
     showModal.value = true;
   }
 
@@ -168,41 +108,57 @@
   }
 
   async function saveProject() {
-    if (!form.name?.trim()) {
-      toast.error('Project name is required');
-      return;
-    }
+    if (!form.name.trim()) return toast.error('Project name is required');
 
-    try {
-      if (isEdit.value) {
-        await store.updateProject(form.id, { name: form.name, description: form.description });
+    if (isEdit.value) {
+      const original = store.projects.find(p => p.id === form.id);
+      if (
+          original &&
+          original.name.trim() === form.name.trim() &&
+          (original.description || '').trim() === (form.description || '').trim()
+      ) {
+        toast.info('No changes detected');
+        return;
+      }
+
+      try {
+        await store.updateProject(form.id, {
+          name: form.name,
+          description: form.description
+        });
         toast.success('Project updated');
-      } else {
+      } catch {
+        toast.error('Something went wrong');
+      }
+    }
+    else {
+      try {
         await store.createProject({ name: form.name, description: form.description });
         toast.success('Project created');
+      } catch {
+        toast.error('Something went wrong');
       }
-      closeModal();
-    } catch (err) {
-      console.error(err);
-      toast.error('Something went wrong');
     }
+
+    closeModal();
   }
 
   function openDeleteModal(project) {
     selectedProject.value = project;
     showDeleteModal.value = true;
   }
+
   function closeDelete() {
     showDeleteModal.value = false;
     selectedProject.value = null;
   }
+
   async function confirmDelete() {
-    if (!selectedProject.value) return closeDelete();
+    if (!selectedProject.value) return;
     try {
       await store.deleteProject(selectedProject.value.id);
       toast.success('Project deleted');
-    } catch (err) {
-      console.error(err);
+    } catch {
       toast.error('Could not delete project');
     } finally {
       closeDelete();
