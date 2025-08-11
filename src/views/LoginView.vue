@@ -1,4 +1,3 @@
-<!-- src/views/LoginView.vue -->
 <template>
   <div class="min-h-screen flex items-center justify-center bg-gray-50">
     <div class="bg-white shadow rounded-lg p-8 w-full max-w-sm">
@@ -60,7 +59,7 @@
 <script setup>
   import { ref, computed } from "vue";
   import { useRouter } from "vue-router";
-  import { useAuthStore } from "@/stores/auth.store";
+  import { useAuthStore } from "@/stores/auth.store.js";
 
   const email = ref("");
   const password = ref("");

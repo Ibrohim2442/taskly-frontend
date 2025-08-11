@@ -1,30 +1,30 @@
 <script setup>
-import { ref, watch, onMounted } from 'vue'
-import { useAuthStore } from '@/stores/auth.store.js'
+  import { ref, watch, onMounted } from 'vue'
+  import { useAuthStore } from '@/stores/auth.store.js'
 
-const auth = useAuthStore()
+  const auth = useAuthStore()
 
-const name = ref('')
-const email = ref('')
-const password = ref('')
+  const name = ref('')
+  const email = ref('')
+  const password = ref('')
 
-const setUserData = () => {
-  if (auth.user) {
-    name.value = auth.user.name || ''
-    email.value = auth.user.email || ''
+  const setUserData = () => {
+    if (auth.user) {
+      name.value = auth.user.name || ''
+      email.value = auth.user.email || ''
+    }
   }
-}
 
-onMounted(async () => {
-  if (!auth.user) {
-    await auth.fetchUser()
-  }
-  setUserData()
-})
+  onMounted(async () => {
+    if (!auth.user) {
+      await auth.fetchUser()
+    }
+    setUserData()
+  })
 
-watch(() => auth.user, () => {
-  setUserData()
-}, { deep: true })
+  watch(() => auth.user, () => {
+    setUserData()
+  }, { deep: true })
 </script>
 
 <template>
