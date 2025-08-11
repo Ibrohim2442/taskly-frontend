@@ -4,13 +4,13 @@ import ProfileSettings from "@/components/settings/ProfileSettings.vue"
 
 const tabs = [
   { name: "Profile Settings", component: ProfileSettings },
-  { name: "App preferences" },  // component yo'q — disabled va "Coming Soon"
-  { name: "Security" },         // component yo'q — disabled va "Coming Soon"
+  { name: "App preferences" },
+  { name: "Security" },
 ]
 
 const activeTab = ref(tabs[0])
 
-// Tabga click qilinganda faqat component bo‘lsa aktivlasin
+// Activate only if the component is active when the tab is clicked
 function selectTab(tab) {
   if (tab.component) {
     activeTab.value = tab

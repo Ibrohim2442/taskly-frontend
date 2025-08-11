@@ -1,4 +1,3 @@
-<!-- src/views/RegisterView.vue -->
 <template>
   <div class="min-h-screen flex items-center justify-center bg-gray-50">
     <div class="bg-white shadow rounded-lg p-8 w-full max-w-sm">
