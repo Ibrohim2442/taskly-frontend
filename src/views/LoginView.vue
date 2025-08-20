@@ -57,12 +57,12 @@
 </template>
 
 <script setup>
-  import { ref, computed } from "vue";
-  import { useRouter } from "vue-router";
-  import { useAuthStore } from "@/stores/auth.store.js";
+  import { ref, computed } from 'vue';
+  import { useRouter } from 'vue-router';
+  import { useAuthStore } from '@/stores/auth.store';
 
-  const email = ref("");
-  const password = ref("");
+  const email = ref('');
+  const password = ref('');
   const auth = useAuthStore();
   const router = useRouter();
 
@@ -81,7 +81,7 @@
 
     if (success) {
       await auth.fetchUser();
-      router.push({ name: "Dashboard" });
+      router.push({ name: 'Dashboard' });
     }
   }
 </script>

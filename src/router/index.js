@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '@/stores/auth.store';
 
-import RegisterView from '@/views/RegisterView.vue';
-import LoginView from '@/views/LoginView.vue';
-import DashboardView from '@/views/DashboardView.vue';
-import ProjectsView from '@/views/ProjectsView.vue';
-import SettingsView from '@/views/SettingsView.vue';
+import RegisterView from '@/views/RegisterView';
+import LoginView from '@/views/LoginView';
+import DashboardView from '@/views/DashboardView';
+import ProjectsView from '@/views/ProjectsView';
+import SettingsView from '@/views/SettingsView';
 
 const routes = [
     { path: '/', redirect: { name: 'Dashboard' } },

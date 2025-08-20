@@ -1,22 +1,3 @@
-<script setup>
-import { ref, defineEmits } from 'vue'
-import { useAuthStore } from '@/stores/auth.store.js'
-
-const showMenu = ref(false)
-const auth = useAuthStore()
-
-const emits = defineEmits(['toggle-sidebar'])
-
-const logout = async () => {
-  await auth.logout()
-}
-
-// Toggle tugma bosilganda event yuboriladi
-const toggleSidebar = () => {
-  emits('toggle-sidebar')
-}
-</script>
-
 <template>
   <header class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
     <!-- Left side: toggle + logo -->
@@ -68,13 +49,32 @@ const toggleSidebar = () => {
   </header>
 </template>
 
+<script setup>
+  import { ref, defineEmits } from 'vue'
+  import { useAuthStore } from '@/stores/auth.store'
+
+  const showMenu = ref(false)
+  const auth = useAuthStore()
+
+  const emits = defineEmits(['toggle-sidebar'])
+
+  const logout = async () => {
+    await auth.logout()
+  }
+
+  // Toggle tugma bosilganda event yuboriladi
+  const toggleSidebar = () => {
+    emits('toggle-sidebar')
+  }
+</script>
+
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.15s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.15s ease;
+  }
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
 </style>

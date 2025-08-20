@@ -1,23 +1,3 @@
-<script setup>
-import { ref } from "vue"
-import ProfileSettings from "@/components/settings/ProfileSettings.vue"
-
-const tabs = [
-  { name: "Profile Settings", component: ProfileSettings },
-  { name: "App preferences" },
-  { name: "Security" },
-]
-
-const activeTab = ref(tabs[0])
-
-// Activate only if the component is active when the tab is clicked
-function selectTab(tab) {
-  if (tab.component) {
-    activeTab.value = tab
-  }
-}
-</script>
-
 <template>
   <div class="p-8 bg-white rounded-2xl shadow-lg w-full max-w-4xl mx-auto min-h-[70vh] flex flex-col justify-center mt-8">
     <h1 class="text-2xl font-semibold mb-6 text-gray-800">Settings</h1>
@@ -47,3 +27,23 @@ function selectTab(tab) {
     </div>
   </div>
 </template>
+
+<script setup>
+  import { ref } from 'vue'
+  import ProfileSettings from '@/components/settings/ProfileSettings'
+
+  const tabs = [
+    { name: 'Profile Settings', component: ProfileSettings },
+    { name: 'App preferences' },
+    { name: 'Security' },
+  ]
+
+  const activeTab = ref(tabs[0])
+
+  // Activate only if the component is active when the tab is clicked
+  function selectTab(tab) {
+    if (tab.component) {
+      activeTab.value = tab
+    }
+  }
+</script>

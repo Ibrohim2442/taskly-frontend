@@ -1,14 +1,6 @@
-<script setup>
-import { defineProps } from 'vue'
-
-const props = defineProps({
-  isOpen: Boolean,
-})
-</script>
-
 <template>
   <aside
-    :class="[
+      :class="[
       'border-r border-gray-200 flex flex-col transition-all duration-300',
       isOpen ? 'w-64' : 'w-0 overflow-hidden'
     ]"
@@ -39,3 +31,11 @@ const props = defineProps({
     </nav>
   </aside>
 </template>
+
+<script setup>
+  import { defineProps } from 'vue'
+
+  const props = defineProps({
+    isOpen: Boolean,
+  })
+</script>

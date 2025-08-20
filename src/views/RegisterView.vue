@@ -76,14 +76,14 @@
 </template>
 
 <script setup>
-  import { ref, computed } from "vue";
-  import { useRouter } from "vue-router";
-  import { useAuthStore } from "@/stores/auth.store";
+  import { ref, computed } from 'vue';
+  import { useRouter } from 'vue-router';
+  import { useAuthStore } from '@/stores/auth.store';
 
-  const name = ref("");
-  const email = ref("");
-  const password = ref("");
-  const password_confirmation = ref("");
+  const name = ref('');
+  const email = ref('');
+  const password = ref('');
+  const password_confirmation = ref('');
   const auth = useAuthStore();
   const router = useRouter();
 
@@ -103,7 +103,7 @@
     });
 
     if (success) {
-      router.push({ name: "Login" });
+      router.push({ name: 'Login' });
     }
   }
 </script>
