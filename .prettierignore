@@ -1,0 +1,21 @@
+# Node
+node_modules
+
+# Build
+dist
+build
+
+# IDE / Logs
+.idea
+.vscode
+*.log
+
+# Coverage
+coverage
+
+# Lockfiles (formatlash shart emas)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+*.osp
