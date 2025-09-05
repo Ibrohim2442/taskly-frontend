@@ -3,13 +3,13 @@
 @import 'tailwindcss';
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
 }
