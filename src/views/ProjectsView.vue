@@ -17,6 +17,11 @@
         {{ projectsStore.error }}
       </div>
 
+      <!-- Loading -->
+      <div v-else-if="projectsStore.loading" class="text-center py-10 text-gray-500">
+        Loading projects...
+      </div>
+
       <!-- No Projects -->
       <div
           v-else-if="!projectsStore.projects.length"
@@ -34,8 +39,8 @@
         >
           <div>
             <h3 class="text-lg font-semibold text-gray-800">{{ p.name }}</h3>
-            <p class="mt-2 text-sm text-gray-500">
-              {{ p.description || 'No description' }}
+            <p v-if="p.description" class="mt-2 text-sm text-gray-500">
+              {{ p.description }}
             </p>
           </div>
 
@@ -61,9 +66,17 @@
 
       <!-- Create/Edit Modal -->
       <transition name="modal-premium">
-        <div v-if="showModal" class="fixed inset-0 flex items-center justify-center z-50">
-          <div class="absolute inset-0 bg-black/30 backdrop-blur-md" @click.self="closeModal"></div>
-          <div class="relative w-full max-w-md p-6 rounded-2xl bg-white border border-gray-200 shadow-xl">
+        <div
+            v-if="showModal"
+            class="fixed inset-0 flex items-center justify-center z-50"
+        >
+          <div
+              class="absolute inset-0 bg-black/30 backdrop-blur-md"
+              @click.self="closeModal"
+          ></div>
+          <div
+              class="relative w-full max-w-md p-6 rounded-2xl bg-white border border-gray-200 shadow-xl"
+          >
             <h2 class="text-xl font-semibold mb-4">
               {{ isEdit ? 'Edit Project' : 'Create Project' }}
             </h2>
@@ -100,9 +113,17 @@
 
       <!-- Delete Modal -->
       <transition name="modal-premium">
-        <div v-if="showDeleteModal" class="fixed inset-0 flex items-center justify-center z-50">
-          <div class="absolute inset-0 bg-black/30 backdrop-blur-md" @click.self="closeDelete"></div>
-          <div class="relative w-full max-w-sm p-6 rounded-2xl bg-white border border-gray-200 shadow-xl">
+        <div
+            v-if="showDeleteModal"
+            class="fixed inset-0 flex items-center justify-center z-50"
+        >
+          <div
+              class="absolute inset-0 bg-black/30 backdrop-blur-md"
+              @click.self="closeDelete"
+          ></div>
+          <div
+              class="relative w-full max-w-sm p-6 rounded-2xl bg-white border border-gray-200 shadow-xl"
+          >
             <h3 class="text-lg font-semibold">Delete Project</h3>
             <p class="text-gray-600 mt-2">
               Are you sure you want to delete
@@ -131,14 +152,14 @@
 </template>
 
 <script setup>
-  import { ref, reactive, onMounted } from 'vue'
-  import { useProjectsStore } from '@/stores/projects.store'
+  import {ref, reactive, onMounted} from 'vue'
+  import {useProjectsStore} from '@/stores/projects.store'
 
   const projectsStore = useProjectsStore()
 
   const showModal = ref(false)
   const isEdit = ref(false)
-  const form = reactive({ id: null, name: '', description: '' })
+  const form = reactive({id: null, name: '', description: ''})
 
   const showDeleteModal = ref(false)
   const selectedProject = ref(null)
@@ -147,7 +168,7 @@
 
   function openModal(project = null) {
     isEdit.value = !!project
-    Object.assign(form, project || { id: null, name: '', description: '' })
+    Object.assign(form, project || {id: null, name: '', description: ''})
     showModal.value = true
   }
 
@@ -156,10 +177,11 @@
   }
 
   async function saveProject() {
-    const ok = isEdit.value
-        ? await projectsStore.updateProject(form.id, { ...form })
-        : await projectsStore.createProject({ ...form })
-
+    const payload = {
+      name: form.name,
+      description: form.description,
+    }
+    const ok = await projectsStore.saveProject(payload, isEdit.value, form.id)
     if (ok) closeModal()
   }
 
@@ -185,6 +207,7 @@
   .modal-premium-leave-active {
     transition: all 200ms ease;
   }
+
   .modal-premium-enter-from,
   .modal-premium-leave-to {
     opacity: 0;
