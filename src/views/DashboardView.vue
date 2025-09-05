@@ -1,5 +1,5 @@
 <template>
-  <main class="flex-1 overflow-auto p-4 sm:p-6 bg-gray-50 min-h-screen">
+  <main class="flex-1 overflow-auto p-4 sm:p-6 min-h-screen">
     <div class="max-w-6xl mx-auto">
       <!-- Project Select -->
       <div class="mb-6">
