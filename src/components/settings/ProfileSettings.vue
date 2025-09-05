@@ -66,8 +66,8 @@
 </template>
 
 <script setup>
-  import { ref, watch, onMounted } from 'vue'
-  import { useAuthStore } from '@/stores/auth.store'
+  import {ref, watch, onMounted} from 'vue'
+  import {useAuthStore} from '@/stores/auth.store'
 
   const auth = useAuthStore()
 
@@ -91,5 +91,5 @@
 
   watch(() => auth.user, () => {
     setUserData()
-  }, { deep: true })
+  }, {deep: true})
 </script>
