@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth.store'
 
-import RegisterView from '@/views/RegisterView'
-import LoginView from '@/views/LoginView'
+import RegisterView from '@/views/Auth/RegisterView.vue'
+import LoginView from '@/views/Auth/LoginView.vue'
 import DashboardView from '@/views/DashboardView'
 import ProjectsView from '@/views/ProjectsView'
 import SettingsView from '@/views/SettingsView'
