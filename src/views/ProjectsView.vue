@@ -1,36 +1,37 @@
 <template>
-  <div class="py-8 px-6">
+  <div class="py-8 px-6 relative">
     <div class="mx-auto w-full max-w-6xl">
-      <!-- Header -->
+      <div
+        v-if="projectsStore.loading"
+        class="fixed inset-0 flex items-center justify-center bg-white/80 z-50"
+      >
+        <div
+          class="animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent"
+        ></div>
+      </div>
+
       <div class="flex items-center justify-between mb-6">
         <h1 class="text-3xl font-semibold text-gray-800">Projects</h1>
         <button
           @click="openModal()"
-          class="px-4 py-2 bg-blue-600 text-white rounded-xl shadow-sm hover:bg-blue-700 transition"
+          class="p-3 bg-blue-600 text-white rounded-xl shadow-sm hover:bg-blue-700 transition"
+          title="New Project"
         >
-          + New Project
+          <i class="fas fa-plus"></i>
         </button>
       </div>
 
-      <!-- Error -->
       <div v-if="projectsStore.error" class="text-center py-10 text-red-500">
         {{ projectsStore.error }}
       </div>
 
-      <!-- Loading -->
-      <div v-else-if="projectsStore.loading" class="text-center py-10 text-gray-500">
-        Loading projects...
-      </div>
-
-      <!-- No Projects -->
       <div
-        v-else-if="!projectsStore.projects.length"
+        v-else-if="!projectsStore.projects.length && !projectsStore.loading"
         class="flex items-center justify-center py-20 text-gray-500 text-lg"
       >
         No projects yet — create your first one ✨
       </div>
 
-      <!-- Projects Grid -->
       <div v-else class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <div
           v-for="p in projectsStore.projects"
@@ -49,22 +50,24 @@
             <div class="flex gap-2">
               <button
                 @click="openModal(p)"
-                class="px-2 py-1 rounded-md bg-green-500 text-white text-sm hover:bg-green-600"
+                class="p-2 rounded-md bg-green-500 text-white hover:bg-green-600"
+                title="Edit"
               >
-                Edit
+                <i class="fas fa-pen"></i>
               </button>
+
               <button
                 @click="openDeleteModal(p)"
-                class="px-2 py-1 rounded-md bg-red-500 text-white text-sm hover:bg-red-600"
+                class="p-2 rounded-md bg-red-500 text-white hover:bg-red-600"
+                title="Delete"
               >
-                Delete
+                <i class="fas fa-trash"></i>
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Create/Edit Modal -->
       <transition name="modal-premium">
         <div v-if="showModal" class="fixed inset-0 flex items-center justify-center z-50">
           <div class="absolute inset-0 bg-black/30 backdrop-blur-md" @click.self="closeModal"></div>
@@ -105,7 +108,6 @@
         </div>
       </transition>
 
-      <!-- Delete Modal -->
       <transition name="modal-premium">
         <div v-if="showDeleteModal" class="fixed inset-0 flex items-center justify-center z-50">
           <div
@@ -151,10 +153,10 @@ import { useProjectsStore } from '@/stores/projects.store'
 const projectsStore = useProjectsStore()
 
 const showModal = ref(false)
-const isEdit = ref(false)
-const form = reactive({ id: null, name: '', description: '' })
-
 const showDeleteModal = ref(false)
+const isEdit = ref(false)
+
+const form = reactive({ id: null, name: '', description: '' })
 const selectedProject = ref(null)
 
 onMounted(() => projectsStore.fetchProjects())
@@ -164,16 +166,12 @@ function openModal(project = null) {
   Object.assign(form, project || { id: null, name: '', description: '' })
   showModal.value = true
 }
-
 function closeModal() {
   showModal.value = false
 }
 
 async function saveProject() {
-  const payload = {
-    name: form.name,
-    description: form.description,
-  }
+  const payload = { name: form.name, description: form.description }
   const ok = await projectsStore.saveProject(payload, isEdit.value, form.id)
   if (ok) closeModal()
 }
@@ -182,12 +180,10 @@ function openDeleteModal(project) {
   selectedProject.value = project
   showDeleteModal.value = true
 }
-
 function closeDelete() {
   showDeleteModal.value = false
   selectedProject.value = null
 }
-
 async function confirmDelete() {
   if (!selectedProject.value) return
   await projectsStore.deleteProject(selectedProject.value.id)
@@ -200,7 +196,6 @@ async function confirmDelete() {
 .modal-premium-leave-active {
   transition: all 200ms ease;
 }
-
 .modal-premium-enter-from,
 .modal-premium-leave-to {
   opacity: 0;
