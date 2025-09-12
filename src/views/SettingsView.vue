@@ -20,7 +20,6 @@
         ]"
       >
         <span>{{ tab.name }}</span>
-        <span v-if="!tab.component" class="text-xs text-red-600 font-semibold">Coming Soon</span>
       </button>
     </div>
 
@@ -32,17 +31,18 @@
 
 <script setup>
 import { ref } from 'vue'
-import ProfileSettings from '@/components/settings/ProfileSettings'
+import ProfileSettings from '@/components/settings/ProfileSettings.vue'
+import AppPreferences from '@/components/settings/AppPreferences.vue'
+import Security from '@/components/settings/Security.vue'
 
 const tabs = [
   { name: 'Profile Settings', component: ProfileSettings },
-  { name: 'App preferences' },
-  { name: 'Security' },
+  { name: 'App Preferences', component: AppPreferences },
+  { name: 'Security', component: Security },
 ]
 
 const activeTab = ref(tabs[0])
 
-// Activate only if the component is active when the tab is clicked
 function selectTab(tab) {
   if (tab.component) {
     activeTab.value = tab
