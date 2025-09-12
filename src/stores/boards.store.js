@@ -25,6 +25,7 @@ export const useBoardsStore = defineStore('boards', {
       try {
         const res = await api.get('/boards')
         this.boards = res.data?.data?.filter((b) => b.project_id === projectId) ?? []
+
         if (this.boards.length > 0 && !this.activeBoardId) {
           this.activeBoardId = this.boards[0].id
         } else if (this.boards.length === 0) {
@@ -54,7 +55,6 @@ export const useBoardsStore = defineStore('boards', {
         const noChanges =
           existing.name === payload.name.trim() &&
           (existing.description ?? '') === (payload.description ?? '')
-
         if (noChanges) {
           toast.error('No changes made')
           return false
