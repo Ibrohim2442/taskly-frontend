@@ -33,12 +33,15 @@
         <span v-if="showLabels">Projects</span>
       </router-link>
 
-      <div
-        class="flex items-center gap-4 px-3 py-2 rounded-lg text-gray-400 cursor-not-allowed select-none"
+      <router-link
+        to="/notifications"
+        class="flex items-center gap-4 px-3 py-2 rounded-lg hover:bg-gray-100"
+        active-class="bg-gray-100 font-medium text-gray-900"
+        @click="$emit('navigate')"
       >
-        <i class="fas fa-bell w-6 text-center"></i>
+        <i class="fas fa-bell text-gray-400 w-6 text-center"></i>
         <span v-if="showLabels">Notifications</span>
-      </div>
+      </router-link>
 
       <router-link
         to="/settings"
