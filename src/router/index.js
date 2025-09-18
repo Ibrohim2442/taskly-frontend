@@ -5,6 +5,7 @@ import RegisterView from '@/views/Auth/RegisterView.vue'
 import LoginView from '@/views/Auth/LoginView.vue'
 import DashboardView from '@/views/DashboardView'
 import ProjectsView from '@/views/ProjectsView'
+import NotificationsView from '@/views/NotificationsView'
 import SettingsView from '@/views/SettingsView'
 
 const routes = [
@@ -13,6 +14,12 @@ const routes = [
   { path: '/login', name: 'Login', component: LoginView, meta: { guest: true } },
   { path: '/dashboard', name: 'Dashboard', component: DashboardView, meta: { requiresAuth: true } },
   { path: '/projects', name: 'Projects', component: ProjectsView, meta: { requiresAuth: true } },
+  {
+    path: '/notifications',
+    name: 'Notifications',
+    component: NotificationsView,
+    meta: { requiresAuth: true },
+  },
   { path: '/settings', name: 'Settings', component: SettingsView, meta: { requiresAuth: true } },
 ]
 
